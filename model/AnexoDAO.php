@@ -21,5 +21,12 @@ class AnexoDAO {
         $stmt = $conexao->prepare("SELECT * FROM anexos WHERE ocorrencia_id = :fk");
         $stmt->bindValue(":fk", $ocorrenciaId);
         $stmt->execute();
+        
+        $anexos = array();
+        while($row = $stmt->fetch()){
+            array_push($anexos, new Anexo($row['id'], $row['caminho'], $row['ocorrencia_id']));
+	}
+        
+        return $anexos;
     }
 }

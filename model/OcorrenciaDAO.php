@@ -19,4 +19,33 @@ class OcorrenciaDAO {
         
         $stmt->execute();
     }
+    
+    function selectOcorrencias() {
+        $stmt = $conexao->prepare("SELECT * FROM ocorrencias");
+        $stmt->execute();
+        
+        $ocorrencias = array();
+        while($row = $stmt->fetch()){
+            array_push($ocorrencias, new Ocorrencia($row['id'], $row['tipo'],
+                    $row['descricao'], $row['horario'], $row['coordenadaX'],
+                    $row['coordenadaY']));
+	}
+        
+        return $ocorrencias;
+    }
+    
+    function selectOcorrenciaById($id) {
+        $stmt = $conexao->prepare("SELECT * FROM ocorrencias WHERE id = :id");
+        $stmt->bindValue(":id", $id);
+        $stmt->execute();
+        
+        $ocorrencias = array();
+        while($row = $stmt->fetch()){
+            array_push($ocorrencias, new Ocorrencia($row['id'], $row['tipo'],
+                    $row['descricao'], $row['horario'], $row['coordenadaX'],
+                    $row['coordenadaY']));
+	}
+        
+        return $ocorrencias;
+    }
 }
