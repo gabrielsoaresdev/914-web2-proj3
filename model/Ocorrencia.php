@@ -5,8 +5,8 @@ class Ocorrencia {
     private $tipo;
     private $descricao;
     private $horario;
-    private $cordenadaX;
-    private $cordenadaY;
+    private $coordenadaX;
+    private $coordenadaY;
     
     function __construct($id, $tipo, $descricao, $horario, $cordenadaX, $cordenadaY) {
         $this->id = $id;

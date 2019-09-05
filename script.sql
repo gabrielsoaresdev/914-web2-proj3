@@ -1,13 +1,13 @@
 CREATE DATABASE db_proj3;
 USE db_proj3;
 
-CREATE TABLE ocorrencia (
+CREATE TABLE ocorrencias (
     id INT PRIMARY KEY AUTO_INCREMENT,
     tipo VARCHAR(20),
     descricao LONGTEXT,
     horario DATETIME,
-    cordenadaX INT,
-    cordenadaY INT
+    coordenadaX INT,
+    coordenadaY INT
 );
 
 CREATE TABLE anexos (
