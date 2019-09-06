@@ -1,14 +1,14 @@
 <?php
-
+require_once 'Ocorrencia.php';
 class OcorrenciaDAO {
     private $conexao;
     
     function __construct() {
-        $conexao = new PDO('mysql:host=localhost;dbname=db_proj3', 'root', '');
+        $this->conexao = new PDO('mysql:host=localhost;dbname=db_proj3', 'root', '');
     }
     
     function insert(Ocorrencia $ocorrencia) {
-        $stmt = $conexao->prepare("INSERT INTO ocorrencias (tipo, descricao,"
+        $stmt = $this->conexao->prepare("INSERT INTO ocorrencias (tipo, descricao,"
                 . " horario, coordenadaX, coordenadaY) VALUES (:t, :d, :h, :x, :y)");
         
         $stmt->bindValue(":t", $ocorrencia->getTipo());
@@ -21,7 +21,7 @@ class OcorrenciaDAO {
     }
     
     function selectOcorrencias() {
-        $stmt = $conexao->prepare("SELECT * FROM ocorrencias");
+        $stmt = $this->conexao->prepare("SELECT * FROM ocorrencias ORDER BY id DESC");
         $stmt->execute();
         
         $ocorrencias = array();
@@ -34,18 +34,15 @@ class OcorrenciaDAO {
         return $ocorrencias;
     }
     
-    function selectOcorrenciaById($id) {
-        $stmt = $conexao->prepare("SELECT * FROM ocorrencias WHERE id = :id");
+    function selectOcorrenciaById($id) : Ocorrencia {
+        $stmt = $this->conexao->prepare("SELECT * FROM ocorrencias WHERE id = :id");
         $stmt->bindValue(":id", $id);
         $stmt->execute();
+        $row = $stmt->fetch();
+        $ocorrencia = new Ocorrencia($row['id'], $row['tipo'],
+            $row['descricao'], $row['horario'], $row['coordenadaX'],
+            $row['coordenadaY']);
         
-        $ocorrencias = array();
-        while($row = $stmt->fetch()){
-            array_push($ocorrencias, new Ocorrencia($row['id'], $row['tipo'],
-                    $row['descricao'], $row['horario'], $row['coordenadaX'],
-                    $row['coordenadaY']));
-	}
-        
-        return $ocorrencias;
+        return $ocorrencia;
     }
 }

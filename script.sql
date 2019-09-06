@@ -9,10 +9,3 @@ CREATE TABLE ocorrencias (
     coordenadaX INT,
     coordenadaY INT
 );
-
-CREATE TABLE anexos (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    caminho VARCHAR(200),
-    ocorrencia_id INT,
-    FOREIGN KEY (ocorrencia_id) REFERENCES ocorrencia(id)
-);
