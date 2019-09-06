@@ -22,11 +22,6 @@ class OcorrenciaController {
             move_uploaded_file($_FILES["arquivo$i"]['tmp_name'], "../$filePath");
             $i++;
         }
-        
-        
-        ?>
-            <script>alert("SEU BOLETIM FOI REGISTRADO COM IDENTIFICADOR <?php echo $id ?>");</script>
-        <?php
     }
     
     function buscarOcorrencias() {
